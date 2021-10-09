@@ -1,0 +1,4 @@
+
+  interface MainParams {
+    name:string;
+  }
