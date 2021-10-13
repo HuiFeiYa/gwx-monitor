@@ -12,13 +12,27 @@
     "strict": true,
     "paths": {
       // 定义 browser key 对应的map路径
-      "browser":[
-        "./packages/browser"
+      "browser/*":[
+        "./packages/browser/*"
+      ],
+      "core/*":[
+        "./packages/core/*"
+      ],
+      "utils/*":[
+        "./packages/utils/*"
+      ],
+      "share/*":[
+        "./packages/share/*"
       ],
     },
     "allowJs": true,
     "checkJs": true,
-    "lib": ["DOM"]
+    "lib": ["DOM"],
+    "declaration": true,
+    //"declarationMap": true,
+    //"sourceMap": true,
+    //"outDir": "./dist/",
+    //"declarationDir": "./dist/packages/"
   },
   "include": ["packages","types"]
 }
