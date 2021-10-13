@@ -2,7 +2,7 @@
 export function nativeTryCatch(fn:()=> void, errorFn?:(err:unknown)=> void){
   try {
     fn()
-  } catch (error:unknown) {
+  } catch (error) {
     console.log(error)
     typeof errorFn === 'function' && errorFn(error) 
   }

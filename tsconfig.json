@@ -2,7 +2,7 @@
   //"extends": "", 继承的基础配置，可以是别人已经规范化的配置，可以被后面自定义的配置覆盖
   "compilerOptions": {
     "baseUrl":"./",
-    "module": "CommonJS",
+    "module": "ES6",
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": false, // 没有为变量提供类型标注时候，TypeScript 后退给变量添加 any 类型，是否允许隐喻的 any类型
     "noImplicitReturns": true, // 检查所有路径都返回值
@@ -21,8 +21,8 @@
       "utils/*":[
         "./packages/utils/*"
       ],
-      "share/*":[
-        "./packages/share/*"
+      "shared/*":[
+        "./packages/shared/*"
       ],
     },
     "allowJs": true,
@@ -31,7 +31,7 @@
     "declaration": true,
     //"declarationMap": true,
     //"sourceMap": true,
-    //"outDir": "./dist/",
+    "outDir": "./dist/",
     //"declarationDir": "./dist/packages/"
   },
   "include": ["packages","types"]

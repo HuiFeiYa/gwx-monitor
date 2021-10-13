@@ -15,8 +15,8 @@ declare enum EVENTTYPES {
   MINI_NETWORK_STATUS_CHANGE = "miniNetworkStatusChange",
   MINI_BATTERY_INFO = "miniBatteryInfo"
 }
-interface ReplaceHanlder{
-  hanlder:(data:any)=> void;
+interface ReplaceHandler{
+  callback:(data:any)=> void;
   type:EVENTTYPES
 }
 
