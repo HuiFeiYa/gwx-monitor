@@ -1,13 +1,25 @@
 import { addReplaceHandler } from "./replace";
-import { htmlElementAsString } from "utils/browser";
+import { htmlElementAsString, getWindowHeight } from "utils/browser";
+import { EVENTTYPES  } from "shared/constant";
 export function setupReplace():void {
   addReplaceHandler({
-    callback: (data) => {
-      const htmlString = htmlElementAsString(data.data.activeElement as HTMLElement)
-      if (htmlString) {
+    callback: (res) => {
+      const htmlString = htmlElementAsString(res.data.target as HTMLElement)
+      if (htmlString ) {
         console.log('htmlString')
       }
     },
-    type: EVENTTYPES.DOM
+    type: EVENTTYPES.CLICK
+  })
+  addReplaceHandler({
+    callback: res => {
+      const scrollTop = res.data.target.scrollTop
+      console.log('scrollTop',scrollTop)
+      let docHeight = getWindowHeight()
+      if(scrollTop / docHeight >= 0.5) {
+        console.log('阅读过半')
+      }
+    },
+    type: EVENTTYPES.SCROLL
   })
 }

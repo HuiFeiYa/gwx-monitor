@@ -1,6 +1,7 @@
 export function htmlElementAsString(target:HTMLElement) :string {
   const tagName = target.tagName.toLowerCase()
-  if(tagName === 'body'){
+  // 判断非最外层元素时候返回 htmlstring
+  if(tagName === 'body' || tagName === 'html'){
     return '' 
   }
   let classNames = target.classList.value 
@@ -8,4 +9,8 @@ export function htmlElementAsString(target:HTMLElement) :string {
   const id = target.id ? ` id="${target.id}"` : ''
   const innerText = target.innerText 
   return `<${tagName}${id}${classNames !== '' ? classNames: ''}>${innerText}</${tagName}`
+}
+
+export function getWindowHeight() {
+  return document.documentElement.clientHeight;
 }

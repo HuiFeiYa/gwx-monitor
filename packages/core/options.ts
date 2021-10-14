@@ -5,7 +5,7 @@ export class Options {
   filterXhrUrlRegExp!: RegExp
   includeHttpUrlTraceIdRegExp!: RegExp
   traceIdFieldName = 'Trace-Id'
-  throttleDelayTime = 0
+  throttleDelayTime = 200
   maxDuplicateCount = 2
   // wx-mini
   appOnLaunch: Function = () => {}
