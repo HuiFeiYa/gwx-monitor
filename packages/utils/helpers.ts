@@ -18,10 +18,10 @@ export const throttle = (fn:Function, delay: number) => {
     }, delay);
   }
 }
-export function typeofAny(target:any, type: string) :boolean {
+export function typeofAny(target:any, type: any) :boolean {
   return typeof target === type
 }
-export function validateOption(target:any,targetName:string,expectType:string):boolean {
+export function validateOption<T>(target:any,targetName:string,expectType:T) : target is T {
   if(typeofAny(target,expectType)) {
     return true
   }

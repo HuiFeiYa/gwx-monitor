@@ -1,8 +1,14 @@
+declare enum UploadType {
+  IMAGE = 0,
+  XHR = 1,
+  BEACON = 2
+}
 interface InitOptions  {
+  uploadType?: UploadType
   /**
    * 错误监控的dsn服务器地址
    */
-  dsn?: string
+  errorDsn?: string
   /**
    * 为true时，整个sdk将禁用
    */
