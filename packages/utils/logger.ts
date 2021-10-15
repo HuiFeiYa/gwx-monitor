@@ -10,6 +10,9 @@ export class Logger {
   error(...args:any[]) {
     this._console.error(`${PREFIX}[Error]:`,...args)
   }
+  log(...args:any[]) {
+    this._console.log(`${PREFIX}[Log]:`,...args)
+  }
 }
 const logger = new Logger()
 export default logger

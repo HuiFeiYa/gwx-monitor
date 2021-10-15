@@ -1,3 +1,4 @@
+import transportData from "./transportData"
 //import { validateOption } from "utils/helpers"
 export class Options {
   beforeAppAjaxSend: Function = () => {}
@@ -30,3 +31,7 @@ export class Options {
   }
 }
 export default new Options()
+
+export function initOptions(options:InitOptions) {
+  transportData.bindOptions(options)
+}

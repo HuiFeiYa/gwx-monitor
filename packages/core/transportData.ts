@@ -78,3 +78,5 @@ export class TransportData {
     validateOption(trackDsn, 'trackDsn', 'string') && (this.trackDsn = trackDsn)
   }
 }
+
+export default new TransportData()

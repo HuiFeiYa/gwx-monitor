@@ -25,7 +25,9 @@
   </div>
   <script type="module">
     import { init } from './packages/browser/index.ts'
-    init()
+    init({
+      trackDsn:'http://localhost:4000/user'
+    })
   </script>
 </body>
 </html>
