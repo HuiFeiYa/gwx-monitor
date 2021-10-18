@@ -1,8 +1,8 @@
 import logger  from './logger'
 export function on(
   target: EventTarget,
-  eventName: keyof GlobalEventHandlersEventMap,
-  handler: EventListenerOrEventListenerObject | null,
+  eventName: keyof GlobalEventHandlersEventMap | keyof WindowEventMap, 
+  handler: EventListenerOrEventListenerObject,
   options?: boolean
 ) {
   target.addEventListener(eventName, handler,options)

@@ -27,7 +27,7 @@ const HandleEvents = {
       data
     })
   },
-  handleError() {
+  handleError(data:any) {
 
   },
   handleHistory(data:any) {
@@ -46,8 +46,16 @@ const HandleEvents = {
       data
     })
   },
-  handleHashChange() {
-
+  handleHashChange(data:any) {
+    breadcrumb.push({
+      type: BREADCRUMB_TYPES.HASH_CHANGE,
+      category: breadcrumb.getCategory(BREADCRUMB_TYPES.HASH_CHANGE),
+      data: data
+    })
+    transportData.send({
+      type: ReportDataType.TRACK,
+      data
+    })
   },
   handleUnhandleRejection() {
 

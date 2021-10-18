@@ -4,7 +4,11 @@ import { _global, on, throttle, getLocationHref, replaceOld } from 'utils/index'
 import { EVENTTYPES } from "shared/constant";
 import { subscribeEvent } from '../core/subscribe';
 import { variableTypeDetection } from '../utils/is';
-// 通过 addReplaceHandler 将指定类型的事件存储在 handlers 中
+/**
+ * 通过 addReplaceHandler 将指定类型的事件存储在 handlers 中
+ * @param hanlder 
+ * @returns 
+ */
 export function addReplaceHandler(hanlder:ReplaceHandler){
   // 先判断该类型事件是否已经替换
   if(!subscribeEvent(hanlder)) return 
@@ -13,6 +17,9 @@ export function addReplaceHandler(hanlder:ReplaceHandler){
   replace(hanlder.type,hanlder.target)
 }
 
+/**
+ * 点击事件监听
+ */
 function clickReplace() {
   const clickThrottle = throttle(triggerHandlers,options.throttleDelayTime)
   on(
@@ -30,6 +37,10 @@ function clickReplace() {
   )
 }
 
+/**
+ * 滚动事件监听
+ * @param target 
+ */
 function scrollReplace(target = document.body) {
   const scrollThrottle = throttle(triggerHandlers,options.throttleDelayTime)
   on(
@@ -48,6 +59,9 @@ function scrollReplace(target = document.body) {
     )
 }
 
+/**
+ * history 事件监听
+ */
 let lastHref = getLocationHref()
 function historyReplace() {
   function historyReplaceFn(originalHistoryFn:(...args:any[])=>void) {
@@ -83,6 +97,17 @@ function historyReplace() {
   }
 
 }
+
+/**
+ * 监听 hash 变化
+ */
+function hashReplace() {
+  if(variableTypeDetection.isWindow(_global)) {
+    on(_global, EVENTTYPES.HASHCHANGE, function(e){
+      triggerHandlers(EVENTTYPES.HASHCHANGE, e)
+    })
+  }
+}
 function replace(type:EVENTTYPES,target = document.body) {
   switch (type) {
     case EVENTTYPES.CLICK:
@@ -92,7 +117,10 @@ function replace(type:EVENTTYPES,target = document.body) {
       scrollReplace(target)
       break;
     case EVENTTYPES.HISTORY: 
-    historyReplace()
+      historyReplace()
+      break;
+    case EVENTTYPES.HASHCHANGE:
+      hashReplace()
       break;
   }
 }
