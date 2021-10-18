@@ -55,11 +55,13 @@ function historyReplace() {
       const url = args[2]
       if(url) {
         const from = lastHref
-        const to = String(url)
+        const to = location.origin + String(url)
         lastHref = to 
         // 无论是 popstate 事件触发还是 pushState、replaceState 都触发 history 事件
         triggerHandlers(EVENTTYPES.HISTORY, { from, to })
       }
+      // 执行原生 history 相关的 api
+      return originalHistoryFn.apply(this,args)
     }
   }
   if(variableTypeDetection.isWindow(_global)) {

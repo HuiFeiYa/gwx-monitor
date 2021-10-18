@@ -46,23 +46,23 @@
     const [path1,path2,path3] = document.querySelector('ol').querySelectorAll('li')
     console.log(path1,path2,path3)
     index.addEventListener('click',function(){
-      router.push('index')
+      router.push('/index')
     })
     page1.addEventListener('click',function(){
-      router.push('page1')
+      router.push('/page1')
     })
     page2.addEventListener('click',function(){
-      router.replace('page2')
+      router.replace('/page2')
     })
 
     path1.addEventListener('click',function(){
-      historyRouter.push('path1')
+      historyRouter.push('/path1')
     })
     path2.addEventListener('click',function(){
-      historyRouter.push('path2')
+      historyRouter.push('/path2')
     })
     path3.addEventListener('click',function(){
-      historyRouter.replace('path3')
+      historyRouter.replace('/path3')
     })
   </script>
 </body>

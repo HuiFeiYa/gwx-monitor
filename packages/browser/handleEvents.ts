@@ -1,5 +1,6 @@
 import transportData from "core/transportData"
 import breadcrumb, { BREADCRUMB_TYPES} from 'core/breadcrumb'
+import { ReportDataType } from 'core/index'
 // 针对不同事件类型进行数据上报
 const HandleEvents = {
   handleHttp() {
@@ -9,18 +10,20 @@ const HandleEvents = {
   handleClick(data:any) {
     breadcrumb.push({
       type: BREADCRUMB_TYPES.CLICK,
+      data
     })
     transportData.send({
-      type:0,
+      type:ReportDataType.TRACK,
       data
     })
   },
   handleScroll(data:any) {
     breadcrumb.push({
       type: BREADCRUMB_TYPES.SCROLL,
+      data
     })
     transportData.send({
-      type: 0,
+      type: ReportDataType.TRACK,
       data
     })
   },
@@ -28,7 +31,20 @@ const HandleEvents = {
 
   },
   handleHistory(data:any) {
-
+    // 处理 history 路由变化
+    const { from, to } = data
+    breadcrumb.push({
+      type: BREADCRUMB_TYPES.HISTORY,
+      category: breadcrumb.getCategory(BREADCRUMB_TYPES.HISTORY),
+      data:{
+        from,
+        to
+      }
+    })
+    transportData.send({
+      type: ReportDataType.TRACK,
+      data
+    })
   },
   handleHashChange() {
 

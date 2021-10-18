@@ -2,7 +2,8 @@ export const nativeToString = Object.prototype.toString
 function isType<T>(type: string) {
   // 缩小传入 value 值的类型
   return function(value:any):value is T {
-    return nativeToString.call(value) === `[object] ${type}`
+    console.log(nativeToString.call(value))
+    return nativeToString.call(value) === `[object ${type}]`
   }
 }
 

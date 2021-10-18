@@ -9,9 +9,20 @@ export enum BREADCRUMB_TYPES {
  HASH_CHANGE = 'hashChange',
  REJECTION = 'rejection'
 }
+
+export enum BREADCRUMB_CATEGORYS {
+  HTTP = 'http',
+  USER = 'user',
+  DEBUG = 'debug',
+  ROUTER = 'router',
+  EXCEPTION = 'exception',
+  LIFECYCLE = 'lifecycle'
+}
 interface BreadcrumbPushData {
   type: BREADCRUMB_TYPES;
   time?: number;
+  data:any;
+  category?:string;
 }
 class Breadcrumb {
   maxBreadcrumbs = 10
@@ -37,6 +48,16 @@ class Breadcrumb {
   }
   clear() {
     this.stack = []
+  }
+  getCategory(type: BREADCRUMB_TYPES) {
+    
+    if(type === BREADCRUMB_TYPES.CLICK) {
+      return BREADCRUMB_CATEGORYS.USER
+    }else if(type === BREADCRUMB_TYPES.HISTORY) {
+      return BREADCRUMB_CATEGORYS.ROUTER
+    }else{
+      return BREADCRUMB_CATEGORYS.EXCEPTION
+    }
   }
   bindOptions(options: InitOptions = {}) {
     const { maxBreadcrumbs } = options

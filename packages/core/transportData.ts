@@ -1,11 +1,11 @@
 import {Queue} from 'utils/index'
 import looger from 'utils/logger'
 import { validateOption } from '../utils/helpers';
-enum ReportDataType  {
+export enum ReportDataType  {
   TRACK = 0,
   ERROR = 1
 }
-enum UploadType {
+export enum UploadType {
   IMAGE = 0,
   XHR = 1,
   BEACON = 2
