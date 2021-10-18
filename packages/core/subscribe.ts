@@ -20,7 +20,12 @@ export function subscribeEvent(handler: ReplaceHandler):boolean {
   return true
 }
 
-// 触发对应事件类型的所有事件
+/**
+ * 触发对应事件类型的所有事件
+ * @param type 
+ * @param data 
+ * @returns 
+ */
 export function triggerHandlers(type: EVENTTYPES,data:any) {
   // 如果类型不存在于 handlers 中结束
   if(!type || !handlers[type])return

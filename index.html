@@ -20,13 +20,49 @@
 </head>
 <body>
   <div class="content">
-    <button>1</button>
+    <input type="text" placeholder="手机号">
+    <input type="text" placeholder="姓名">
     <div class="button">按钮</div>
+    <ul>
+      <li>index</li>
+      <li>page1</li>
+      <li>page2</li>
+    </ul>
+    <ol>
+      <li>path1</li>
+      <li>path2</li>
+      <li>path3</li>
+    </ol>
   </div>
   <script type="module">
     import { init } from './packages/browser/index.ts'
+    import { HashRouter, HistoryRouter } from './router/index.ts'
     init({
       trackDsn:'http://localhost:4000/user'
+    })
+    const router = new HashRouter()
+    const historyRouter = new HistoryRouter()
+    const [index,page1,page2] = document.querySelector('ul').querySelectorAll('li')
+    const [path1,path2,path3] = document.querySelector('ol').querySelectorAll('li')
+    console.log(path1,path2,path3)
+    index.addEventListener('click',function(){
+      router.push('index')
+    })
+    page1.addEventListener('click',function(){
+      router.push('page1')
+    })
+    page2.addEventListener('click',function(){
+      router.replace('page2')
+    })
+
+    path1.addEventListener('click',function(){
+      historyRouter.push('path1')
+    })
+    path2.addEventListener('click',function(){
+      historyRouter.push('path2')
+    })
+    path3.addEventListener('click',function(){
+      historyRouter.replace('path3')
     })
   </script>
 </body>

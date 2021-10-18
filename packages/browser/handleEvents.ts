@@ -27,7 +27,7 @@ const HandleEvents = {
   handleError() {
 
   },
-  handleHistory() {
+  handleHistory(data:any) {
 
   },
   handleHashChange() {

@@ -27,4 +27,11 @@ export function setupReplace():void {
     },
     type: EVENTTYPES.SCROLL
   })
+
+  addReplaceHandler({
+    callback: res => {
+      handleEvents.handleHistory(res)
+    },
+    type: EVENTTYPES.HISTORY
+  })
 }
