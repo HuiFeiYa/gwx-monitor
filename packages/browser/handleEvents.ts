@@ -33,28 +33,30 @@ const HandleEvents = {
   handleHistory(data:any) {
     // 处理 history 路由变化
     const { from, to } = data
-    breadcrumb.push({
+    let info = {
       type: BREADCRUMB_TYPES.HISTORY,
       category: breadcrumb.getCategory(BREADCRUMB_TYPES.HISTORY),
       data:{
         from,
         to
       }
-    })
+    }
+    breadcrumb.push(info)
     transportData.send({
       type: ReportDataType.TRACK,
-      data
+      data:info
     })
   },
   handleHashChange(data:any) {
-    breadcrumb.push({
+    let info = {
       type: BREADCRUMB_TYPES.HASH_CHANGE,
       category: breadcrumb.getCategory(BREADCRUMB_TYPES.HASH_CHANGE),
       data: data
-    })
+    }
+    breadcrumb.push(info)
     transportData.send({
       type: ReportDataType.TRACK,
-      data
+      data:info
     })
   },
   handleUnhandleRejection() {
