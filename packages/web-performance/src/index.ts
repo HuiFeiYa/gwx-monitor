@@ -1,9 +1,11 @@
-import { afterLoad,beforeUnload, unload } from './utils/index'
+import { afterLoad,beforeUnload } from './utils/index'
 import MetricsStore from './lib/store'
 import createReporter from './lib/createReporter'
 import { metricsName } from './constants/index';
 import { IConfig } from './types/index';
 import generateUniqueID from './utils/generateUniquelD';
+import { calcStayTime } from "utils/global"
+import transportData, { ReportDataType } from "core/transportData"
 
 // 管理 performance 相关数据
 let metricsStore: MetricsStore
@@ -22,10 +24,16 @@ export default class WebVitals {
 
     })
     // 页面卸载，路由切换并不会触发。跳转外链。
-    ;[beforeUnload,unload].forEach(hanlder => {
-      hanlder(()=> {
-        const metrics = this.getCurrentMetrics()
-        console.log('metrics',metrics)
+    beforeUnload(()=> {
+      const metrics = this.getCurrentMetrics()
+      console.log('metrics',metrics)
+      transportData.send({
+        type: ReportDataType.TRACK,
+        data: {
+          ...calcStayTime.calc(),
+          ...metrics,
+          unloadPage: location.href, // 卸载页面路径 
+        }
       })
     });
   }

@@ -22,3 +22,20 @@ export function getGlobal() {
   return window
 }
 export const _global = getGlobal()
+class CalcStayTime {
+  lastTime!:number
+  constructor() {
+    this.lastTime = Date.now()
+  }
+  calc() {
+    let enterTime = this.lastTime
+    let leaveTime = Date.now()
+    this.lastTime = leaveTime
+    return {
+      enterTime,
+      leaveTime,
+      stayTime: (leaveTime - enterTime) / 1000 // 单位 s
+    }
+  }
+}
+export const calcStayTime = new CalcStayTime()

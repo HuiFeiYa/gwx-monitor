@@ -20,6 +20,7 @@ declare enum EVENTTYPES {
 interface ReplaceHandler{
   callback:(data:any)=> void;
   type:EVENTTYPES;
-  target?: HTMLElement // 需要监听的元素
+  target?: HTMLElement, // 需要监听的元素
+  classList?: string[], // 设置滚动元素的列表
 }
 

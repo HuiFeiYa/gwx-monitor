@@ -1,6 +1,6 @@
 import { triggerHandlers } from "core/subscribe";
 import options from 'core/options'
-import { _global, on, throttle, getLocationHref, replaceOld } from 'utils/index';
+import { _global, on, throttle, getLocationHref, replaceOld,calcStayTime } from 'utils/index';
 import { EVENTTYPES } from "shared/constant";
 import { subscribeEvent } from '../core/subscribe';
 import { variableTypeDetection } from '../utils/is';
@@ -14,7 +14,9 @@ export function addReplaceHandler(hanlder:ReplaceHandler){
   if(!subscribeEvent(hanlder)) return 
   // 替换原生事件，
   // 将 triggerHanlders 触发指定类型事件，在 replace 事件中触发指定类型事件。
-  replace(hanlder.type,hanlder.target)
+  replace(hanlder.type,{
+    classList:hanlder.classList ? hanlder.classList: []
+  })
 }
 
 /**
@@ -38,32 +40,35 @@ function clickReplace() {
 }
 
 /**
- * 滚动事件监听
- * @param target 
+ * 滚动事件监听,给多个元素设置滚动监听
+ * @param targetList 
  */
-function scrollReplace(target = document.body) {
+function scrollReplace(targetList) {
   const scrollThrottle = throttle(triggerHandlers,options.throttleDelayTime)
-  on(
-      target,
-      'scroll',
-      function (this:any,e) {
-        scrollThrottle(
-          EVENTTYPES.SCROLL,
-          {
-            category: 'scroll',
-            data: e
-          }
-        )
-      },
-      true
-    )
+  targetList.forEach(ele => {
+    on(
+        ele,
+        'scroll',
+        function (this:any,e) {
+          scrollThrottle(
+            EVENTTYPES.SCROLL,
+            {
+              category: 'scroll',
+              data: {
+                originEvent:e
+              }
+            }
+          )
+        },
+        true
+      )
+  })
 }
 
 /**
  * history 事件监听
  */
 let lastHref = getLocationHref()
-let lastTime = Date.now() // 进入页面的时间
 function historyReplace() {
   function historyReplaceFn(originalHistoryFn:(...args:any[])=>void) {
     return function(this:History,...args:any[]) {
@@ -74,9 +79,7 @@ function historyReplace() {
         console.log('url',url)
         const from = lastHref
         const to =  String(url)
-        const enterTime = lastTime 
-        const leaveTime = Date.now()
-        lastTime = leaveTime
+      
         lastHref = to 
         // 无论是 popstate 事件触发还是 pushState、replaceState 都触发 history 事件
         triggerHandlers(
@@ -84,9 +87,7 @@ function historyReplace() {
           {
              from, 
              to,
-             enterTime,
-             leaveTime,
-             stayTime: (leaveTime -  enterTime) / 1000 
+             ...calcStayTime.calc()
           }
         )
       }
@@ -100,9 +101,6 @@ function historyReplace() {
     _global.onpopstate = function (this:WindowEventHandlers,e:PopStateEvent ) {
       const to = getLocationHref()
       const from = lastHref
-      const leaveTime = Date.now()
-      const enterTime = lastTime
-      lastTime = leaveTime
       // 更新上一次路径
       lastHref = to 
       // 触发传入 handlers 的 callback 函数
@@ -111,9 +109,7 @@ function historyReplace() {
         {
            from, 
            to,
-           enterTime,
-           leaveTime,
-           stayTime: (leaveTime -  enterTime) / 1000  // 停留时间，单位为 s
+           ...calcStayTime.calc()
         }
       )
       oldOnpopstate && oldOnpopstate.apply(this,[e])
@@ -132,17 +128,38 @@ function historyReplace() {
 function hashReplace() {
   if(variableTypeDetection.isWindow(_global)) {
     on(_global, EVENTTYPES.HASHCHANGE, function(e){
-      triggerHandlers(EVENTTYPES.HASHCHANGE, e)
+      const to = getLocationHref()
+      const from = lastHref
+      // 更新上一次路径
+      lastHref = to 
+      triggerHandlers(EVENTTYPES.HASHCHANGE, {
+        from,
+        to,
+        ...calcStayTime.calc()
+      })
     })
   }
 }
-function replace(type:EVENTTYPES,target = document.body) {
+interface ReplaceOptions {
+  classList?: string[]
+}
+function replace(
+  type:EVENTTYPES, 
+  options: ReplaceOptions
+ ) {
+  let scrollTargetList:Element[] = []
+  const { classList } = options
+  if(classList) {
+    classList.forEach((key:string)=> {
+      scrollTargetList.push(...Array.from(document.querySelectorAll(key)))
+    })
+  }
   switch (type) {
     case EVENTTYPES.CLICK:
       clickReplace()
       break;
     case EVENTTYPES.SCROLL:
-      scrollReplace(target)
+      scrollReplace([document.body as Element].concat(scrollTargetList))
       break;
     case EVENTTYPES.HISTORY: 
       historyReplace()

@@ -2,7 +2,7 @@ export function htmlElementAsString(target:HTMLElement) :string {
   const tagName = target.tagName.toLowerCase()
   // 判断非最外层元素时候返回 htmlstring
   if(tagName === 'body' || tagName === 'html'){
-    return '' 
+    return tagName 
   }
   let classNames = target.classList.value 
   classNames = classNames !== '' ? ` class="${classNames}" ` : ''
