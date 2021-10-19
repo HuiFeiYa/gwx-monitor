@@ -32,14 +32,10 @@ const HandleEvents = {
   },
   handleHistory(data:any) {
     // 处理 history 路由变化
-    const { from, to } = data
     let info = {
       type: BREADCRUMB_TYPES.HISTORY,
       category: breadcrumb.getCategory(BREADCRUMB_TYPES.HISTORY),
-      data:{
-        from,
-        to
-      }
+      data
     }
     breadcrumb.push(info)
     transportData.send({
@@ -51,7 +47,7 @@ const HandleEvents = {
     let info = {
       type: BREADCRUMB_TYPES.HASH_CHANGE,
       category: breadcrumb.getCategory(BREADCRUMB_TYPES.HASH_CHANGE),
-      data: data
+      data
     }
     breadcrumb.push(info)
     transportData.send({

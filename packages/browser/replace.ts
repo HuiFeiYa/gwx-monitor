@@ -63,16 +63,32 @@ function scrollReplace(target = document.body) {
  * history 事件监听
  */
 let lastHref = getLocationHref()
+let lastTime = Date.now() // 进入页面的时间
 function historyReplace() {
   function historyReplaceFn(originalHistoryFn:(...args:any[])=>void) {
     return function(this:History,...args:any[]) {
-      const url = args[2]
+      let url = args[2]
       if(url) {
+        // 路径是否携带 http 协议
+        url = url.indexOf('http') !== -1 ? url : (location.origin + url)
+        console.log('url',url)
         const from = lastHref
         const to =  String(url)
+        const enterTime = lastTime 
+        const leaveTime = Date.now()
+        lastTime = leaveTime
         lastHref = to 
         // 无论是 popstate 事件触发还是 pushState、replaceState 都触发 history 事件
-        triggerHandlers(EVENTTYPES.HISTORY, { from, to })
+        triggerHandlers(
+          EVENTTYPES.HISTORY, 
+          {
+             from, 
+             to,
+             enterTime,
+             leaveTime,
+             stayTime: (leaveTime -  enterTime) / 1000 
+          }
+        )
       }
       // 执行原生 history 相关的 api
       return originalHistoryFn.apply(this,args)
@@ -84,10 +100,22 @@ function historyReplace() {
     _global.onpopstate = function (this:WindowEventHandlers,e:PopStateEvent ) {
       const to = getLocationHref()
       const from = lastHref
+      const leaveTime = Date.now()
+      const enterTime = lastTime
+      lastTime = leaveTime
       // 更新上一次路径
       lastHref = to 
       // 触发传入 handlers 的 callback 函数
-      triggerHandlers(EVENTTYPES.HISTORY, { from ,to })
+      triggerHandlers(
+        EVENTTYPES.HISTORY, 
+        {
+           from, 
+           to,
+           enterTime,
+           leaveTime,
+           stayTime: (leaveTime -  enterTime) / 1000  // 停留时间，单位为 s
+        }
+      )
       oldOnpopstate && oldOnpopstate.apply(this,[e])
     } 
     // 拦截 history.pushState(state, title[, url]) 事件
