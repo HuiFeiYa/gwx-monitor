@@ -21,14 +21,17 @@ export default class WebVitals {
     afterLoad(()=> {
 
     })
+    // 页面卸载，路由切换并不会触发。跳转外链。
     ;[beforeUnload,unload].forEach(hanlder => {
       hanlder(()=> {
-
+        const metrics = this.getCurrentMetrics()
+        console.log('metrics',metrics)
       })
     });
   }
+  // 返回 store 存储的所有数据
   getCurrentMetrics() {
-    
+    return metricsStore.getValues()
   }
 }
 

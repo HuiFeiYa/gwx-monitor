@@ -8,6 +8,7 @@ export default defineConfig({
       "core": resolve('packages/core'),
       "shared": resolve('packages/shared'),
       "utils": resolve('packages/utils'),
+      "web-performance": resolve('packages/web-performance')
     }
   }
 })

@@ -20,7 +20,7 @@ export interface IConfig {
   version: string
   reportCallback: Function
   reportUri?: string
-  immediately: boolean
+  immediately?: boolean
   customPaintMetrics?: string
   logFpsCount?: number
 }

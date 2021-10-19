@@ -1,14 +1,26 @@
 export const afterLoad = callback => {
   if(document.readyState === 'complete') {
-    setTimeout(callback)
+    setTimeout(()=>{
+      console.log('afterLoad')
+      callback()
+    })
   }else{
-    window.addEventListener('pageshow',callback)
+    window.addEventListener('pageshow',()=>{
+      console.log('afterLoad')
+      callback()
+    })
   }
 }
 
 export const beforeUnload = callback => {
-  window.addEventListener('beforeunload', callback)
+  window.addEventListener('beforeunload', ()=>{
+    console.log('beforeUnload')
+    callback()
+  })
 }
 export const unload = callback => {
-  window.addEventListener('unload', callback)
+  window.addEventListener('unload', ()=>{
+    console.log('unload')
+    callback()
+  })
 }

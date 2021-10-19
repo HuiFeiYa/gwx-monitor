@@ -79,6 +79,12 @@
       }).$mount('#app')
 
   </script>
+  <script type="module">
+    import { init } from './packages/browser/index.ts'
+    init({
+      trackDsn:'http://localhost:4000/user'
+    })
+  </script>
   <!--<script type="module">
     import { init } from './packages/browser/index.ts'
     import { HashRouter, HistoryRouter } from './router/index.ts'

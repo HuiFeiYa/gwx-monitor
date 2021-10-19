@@ -24,6 +24,9 @@
       "shared/*":[
         "./packages/shared/*"
       ],
+      "web-performance/*": [
+        "./packages/web-performance/*"
+      ]
     },
     "allowJs": true,
     "checkJs": true,
