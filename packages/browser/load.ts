@@ -19,7 +19,7 @@ export function setupReplace():void {
     callback: res => {
       handleEvents.handleScroll(res)
       const scrollTop = res.data.target.scrollTop
-      console.log('scrollTop',scrollTop)
+      console.log('scrollTop',scrollTop,res)
       let docHeight = getWindowHeight()
       if(scrollTop / docHeight >= 0.5) {
         console.log('阅读过半')

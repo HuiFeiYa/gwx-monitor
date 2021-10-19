@@ -10,7 +10,7 @@
       height: 500px;
       overflow-y: scroll;
     }
-    .content{
+    .content,#app{
       height: 1000px;
     }
     html {
@@ -77,10 +77,9 @@
       const app = new Vue({
         router
       }).$mount('#app')
-      console.log(router)
 
   </script>
-  <script type="module">
+  <!--<script type="module">
     import { init } from './packages/browser/index.ts'
     import { HashRouter, HistoryRouter } from './router/index.ts'
     init({
@@ -110,6 +109,6 @@
     path3.addEventListener('click',function(){
       historyRouter.replace('/path3')
     })
-  </script>
+  </script>-->
 </body>
 </html>
