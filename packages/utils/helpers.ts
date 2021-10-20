@@ -52,3 +52,6 @@ export function replaceOld(source:any,name: string, replacement: (...args:any[])
     }
   }
 }
+export function getTimeStamp() {
+  return Date.now()
+}

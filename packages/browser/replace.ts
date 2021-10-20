@@ -1,9 +1,10 @@
 import { triggerHandlers } from "core/subscribe";
 import options from 'core/options'
-import { _global, on, throttle, getLocationHref, replaceOld,calcStayTime } from 'utils/index';
+import { _global, on, throttle, getLocationHref, replaceOld,calcStayTime, getTimeStamp } from 'utils/index';
 import { EVENTTYPES } from "shared/constant";
 import { subscribeEvent } from '../core/subscribe';
 import { variableTypeDetection } from '../utils/is';
+import { HTTP_TYPE } from 'shared/index'
 /**
  * 通过 addReplaceHandler 将指定类型的事件存储在 handlers 中
  * @param hanlder 
@@ -143,6 +144,73 @@ function hashReplace() {
 interface ReplaceOptions {
   classList?: string[]
 }
+function xhrReplace() {
+  if(!('XMLHttpRequest' in _global)){
+    return 
+  }
+  const originalXhrProto = XMLHttpRequest.prototype
+  // 请求参数
+  let reqConfig:{
+    method:string;url:string;sTime:number;type:HTTP_TYPE;body?:any
+  }
+  let reqHeader: {
+    [propName:string]: any
+  } = {}
+  // 替换 XMLHttpRequest 原生 open 事件
+  replaceOld(originalXhrProto,'open',(originalOpen)=>{
+    // 返回函数替换原 originalOpen 事件 xhr.open(method,url,async)
+    return function(this:XMLHttpRequest,...args:any[]) {
+      const [method,url] = args
+      reqConfig = {
+        method,
+        url,
+        sTime: getTimeStamp(),
+        type: HTTP_TYPE.XHR
+      }
+      originalOpen.apply(this,args)
+    }
+  })
+  // 拦截请求头数据
+  replaceOld(originalXhrProto,'setRequestHeader', originalSetRequestHeader => {
+    return function (this:XMLHttpRequest,header,value) {
+      reqHeader[header] = value
+      originalSetRequestHeader.call(this,header,value)
+    }
+  })
+  // 拦截 body 值
+  replaceOld(originalXhrProto, 'send', originalSend => {
+    // xhr.send(body)
+    return function (this:XMLHttpRequest,body:any) {
+      reqConfig.body = body
+      originalSend.apply(this,body)
+      
+      // 设置监听事件
+      this.addEventListener('error',error=> {
+        console.log(error)
+      })
+      this.addEventListener('loadend', (res:ProgressEvent) => {
+        const { response, status,responseText,responseURL } = res.target as XMLHttpRequest
+        const resConfig = {
+          elapsedTime: getTimeStamp() - reqConfig.sTime,
+          status,
+          responseURL,
+          responseText,
+          response
+        }
+        triggerHandlers(EVENTTYPES.XHR, {
+          resConfig,
+          reqConfig,
+          reqHeader
+        })
+      })
+    }
+  })
+
+
+}1
+function fetchReplace() {
+
+}
 function replace(
   type:EVENTTYPES, 
   options: ReplaceOptions
@@ -155,6 +223,12 @@ function replace(
     })
   }
   switch (type) {
+    case EVENTTYPES.XHR:
+      xhrReplace()
+      break;
+    case EVENTTYPES.FETCH:
+      fetchReplace()
+      break;
     case EVENTTYPES.CLICK:
       clickReplace()
       break;

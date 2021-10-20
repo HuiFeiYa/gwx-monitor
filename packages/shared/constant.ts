@@ -20,3 +20,7 @@
   MINI_NETWORK_STATUS_CHANGE = 'miniNetworkStatusChange',
   MINI_BATTERY_INFO = 'miniBatteryInfo'
 }
+export enum HTTP_TYPE  {
+  XHR = 'xhr',
+  FETCH = 'fetch'
+}

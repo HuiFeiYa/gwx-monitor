@@ -58,4 +58,10 @@ export function setupReplace():void {
     },
     type: EVENTTYPES.HISTORY
   })
+  addReplaceHandler({
+    callback: res => {
+      handleEvents.handleHttp(res)
+    },
+    type: EVENTTYPES.XHR
+  })
 }

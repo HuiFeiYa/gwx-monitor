@@ -3,8 +3,15 @@ import breadcrumb, { BREADCRUMB_TYPES} from 'core/breadcrumb'
 import { ReportDataType } from 'core/index'
 // 针对不同事件类型进行数据上报
 const HandleEvents = {
-  handleHttp() {
-
+  handleHttp(data) {
+    breadcrumb.push({
+      type: BREADCRUMB_TYPES.HTTP,
+      data
+    })
+    transportData.send({
+      type: ReportDataType.TRACK,
+      data
+    })
   },
   // 记录点击事件数据
   handleClick(data:any) {

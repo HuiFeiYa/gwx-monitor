@@ -27,6 +27,8 @@
   <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
   <div id="app">
     <h1>Hello App!</h1>
+    <button class="req">get 请求</button>
+    <button class="post">post 请求</button>
     <p class="mto-scroll-b" data-scroll-b="跳转链接">
       <!-- 使用 router-link 组件来导航. -->
       <!-- 通过传入 `to` 属性指定链接. -->
@@ -101,6 +103,25 @@
     import { init } from './packages/browser/index.ts'
     init({
       trackDsn:'http://localhost:4000/user'
+    })
+    const reqButton = document.getElementsByClassName('req')[0]
+    const postButton = document.getElementsByClassName('post')[0]
+    reqButton.addEventListener('click',function() {
+    
+      let xhr = new XMLHttpRequest()
+      xhr.open('get','http://localhost:4000/index')
+      xhr.setRequestHeader('name','zhangsan')
+      xhr.send(null)
+    })
+    postButton.addEventListener('click',function() {
+      let xhr = new XMLHttpRequest()
+      xhr.open('post','http://localhost:4000/track')
+      xhr.setRequestHeader('track','aaa')
+      xhr.setRequestHeader('track1','bbb')
+      xhr.send({
+        name:'dd',
+        password:123
+      })
     })
   </script>
   <!--<script type="module">
