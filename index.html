@@ -29,6 +29,7 @@
     <h1>Hello App!</h1>
     <button class="req">get 请求</button>
     <button class="post">post 请求</button>
+    <button class="fetch">fetch 请求</button>
     <p class="mto-scroll-b" data-scroll-b="跳转链接">
       <!-- 使用 router-link 组件来导航. -->
       <!-- 通过传入 `to` 属性指定链接. -->
@@ -106,6 +107,7 @@
     })
     const reqButton = document.getElementsByClassName('req')[0]
     const postButton = document.getElementsByClassName('post')[0]
+    const fetchButton = document.getElementsByClassName('fetch')[0]
     reqButton.addEventListener('click',function() {
     
       let xhr = new XMLHttpRequest()
@@ -121,6 +123,18 @@
       xhr.send({
         name:'dd',
         password:123
+      })
+    })
+    fetchButton.addEventListener('click',function(){
+      fetch('http://localhost:4000/track',{
+        method: 'POST',
+        body: {
+          type:'fetch',
+          trigger: 'click'
+        },
+        headers: {
+          Ev: 'v8'
+        }
       })
     })
   </script>

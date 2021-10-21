@@ -4,6 +4,7 @@ import { EVENTTYPES  } from "shared/constant";
 import handleEvents from './handleEvents';
 
 export function setupReplace():void {
+  // 将 handleEvents 事件添加到 handlers 事件中
   addReplaceHandler({
     callback: (res) => {
       // 触发 click 上报事件
@@ -63,5 +64,11 @@ export function setupReplace():void {
       handleEvents.handleHttp(res)
     },
     type: EVENTTYPES.XHR
+  })
+  addReplaceHandler({
+    callback:res => {
+      handleEvents.handleHttp(res)
+    },
+    type: EVENTTYPES.FETCH
   })
 }
