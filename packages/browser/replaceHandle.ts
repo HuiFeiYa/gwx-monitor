@@ -60,7 +60,6 @@ export function scrollReplace(targetList) {
        if(url) {
          // 路径是否携带 http 协议
          url = url.indexOf('http') !== -1 ? url : (location.origin + url)
-         console.log('url',url)
          const from = lastHref
          const to =  String(url)
        
@@ -226,4 +225,13 @@ export function scrollReplace(targetList) {
          })
      }
    })
+ }
+ export function errorReplace() {
+    replaceOld(console, EVENTTYPES.ERROR, originalLog => {
+      return function(this:typeof _global,...args:any[]) {
+        triggerHandlers(EVENTTYPES.ERROR, args)
+        originalLog.apply(this,args)
+        //originalLog.call(this,args)
+      }
+    })
  }

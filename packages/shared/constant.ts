@@ -9,6 +9,7 @@
   SCROLL= 'scroll',
   HISTORY = 'history',
   ERROR = 'error',
+  LOG = 'log',
   HASHCHANGE = 'hashchange',
   UNHANDLEDREJECTION = 'unhandledrejection',
   MITO = 'mito',

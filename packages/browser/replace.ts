@@ -1,5 +1,5 @@
 
-import { clickReplace, scrollReplace,historyReplace,hashReplace,xhrReplace,fetchReplace } from "./replaceHandle";
+import { clickReplace, scrollReplace, historyReplace, hashReplace, xhrReplace, fetchReplace, errorReplace } from './replaceHandle';
 import { EVENTTYPES } from "shared/constant";
 import { subscribeEvent } from '../core/subscribe';
 
@@ -52,6 +52,9 @@ function replace(
       break;
     case EVENTTYPES.HASHCHANGE:
       hashReplace()
+      break;
+    case EVENTTYPES.ERROR:
+      errorReplace()
       break;
   }
 }

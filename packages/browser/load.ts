@@ -71,4 +71,10 @@ export function setupReplace():void {
     },
     type: EVENTTYPES.FETCH
   })
+  addReplaceHandler({
+    callback: res => {
+      handleEvents.handleError(res)
+    },
+    type: EVENTTYPES.ERROR
+  })
 }

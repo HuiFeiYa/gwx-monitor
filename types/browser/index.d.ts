@@ -7,6 +7,7 @@ declare enum EVENTTYPES {
   HISTORY = 'history',
   ERROR = 'error',
   HASHCHANGE = 'hashchange',
+  LOG = 'log',
   UNHANDLEDREJECTION = 'unhandledrejection',
   MITO = 'mito',
   VUE = 'Vue',

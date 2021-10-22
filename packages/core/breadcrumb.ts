@@ -1,4 +1,4 @@
-import logger from 'utils/logger'
+
 import { validateOption } from '../utils/helpers';
 export enum BREADCRUMB_TYPES {
  HTTP = 'http',
@@ -7,7 +7,8 @@ export enum BREADCRUMB_TYPES {
  ERROR = 'error',
  HISTORY = 'history',
  HASH_CHANGE = 'hashChange',
- REJECTION = 'rejection'
+ REJECTION = 'rejection',
+ LOG = 'log'
 }
 
 export enum BREADCRUMB_CATEGORYS {
@@ -44,7 +45,7 @@ class Breadcrumb {
         return -1
       }
     })
-    logger.log(this.stack)
+    //logger.log(this.stack)
   }
   clear() {
     this.stack = []

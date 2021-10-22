@@ -72,8 +72,12 @@
   </div>
   -->
   <script>
-      const Foo = { template: '<div>foo</div>' }
-      const Bar = { template: '<div>bar</div>' }
+      const Foo = { template: '<div>foo</div>',created() {
+        console.log('foo created')
+      } }
+      const Bar = { template: '<div>bar</div>',created() {
+        console.log('bar created')
+      }}
 
       // 2. 定义路由
       // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -103,8 +107,11 @@
   <script type="module">
     import { init } from './packages/browser/index.ts'
     init({
-      trackDsn:'http://localhost:4000/user'
+      trackDsn:'http://localhost:4000/user', // 埋点日志
+      errorDsn:'http://localhost:4000/user', // 错误日志
     })
+    console.error('this is error','sencond error')
+
     const reqButton = document.getElementsByClassName('req')[0]
     const postButton = document.getElementsByClassName('post')[0]
     const fetchButton = document.getElementsByClassName('fetch')[0]

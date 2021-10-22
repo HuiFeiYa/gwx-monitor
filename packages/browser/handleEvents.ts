@@ -35,7 +35,17 @@ const HandleEvents = {
     })
   },
   handleError(data:any) {
-
+    const info = {
+      errorArgsList: data,
+    }
+    breadcrumb.push({
+      type: BREADCRUMB_TYPES.ERROR,
+      data:info
+    })
+    transportData.send({
+      type: ReportDataType.ERROR,
+      data:info
+    })
   },
   handleHistory(data:any) {
     // 处理 history 路由变化
@@ -62,8 +72,17 @@ const HandleEvents = {
       data:info
     })
   },
+  handleLog(data) {
+    breadcrumb.push({
+      type: BREADCRUMB_TYPES.LOG,
+      data
+    })
+    transportData.send({
+      type: ReportDataType.TRACK,
+      data
+    })
+  },
   handleUnhandleRejection() {
-
   }
 }
 export default HandleEvents
