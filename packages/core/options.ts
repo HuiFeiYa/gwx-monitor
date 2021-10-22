@@ -27,7 +27,8 @@ export class Options {
     this.enableTraceId = false
   }
   bindOptions(options: InitOptions = {}): void {
-    
+    const { throttleDelayTime } = options
+    throttleDelayTime && (this.throttleDelayTime = throttleDelayTime)
   }
 }
 export default new Options()

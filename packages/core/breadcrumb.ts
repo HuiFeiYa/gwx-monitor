@@ -1,24 +1,6 @@
 
 import { validateOption } from '../utils/helpers';
-export enum BREADCRUMB_TYPES {
- HTTP = 'http',
- CLICK = 'click',
- SCROLL = 'scroll',
- ERROR = 'error',
- HISTORY = 'history',
- HASH_CHANGE = 'hashChange',
- REJECTION = 'rejection',
- LOG = 'log'
-}
-
-export enum BREADCRUMB_CATEGORYS {
-  HTTP = 'http',
-  USER = 'user',
-  DEBUG = 'debug',
-  ROUTER = 'router',
-  EXCEPTION = 'exception',
-  LIFECYCLE = 'lifecycle'
-}
+import { BREADCRUMB_TYPES,BREADCRUMB_CATEGORYS } from './constant'
 interface BreadcrumbPushData {
   type: BREADCRUMB_TYPES;
   time?: number;

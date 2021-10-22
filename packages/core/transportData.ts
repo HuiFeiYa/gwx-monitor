@@ -1,15 +1,8 @@
 import {Queue} from 'utils/index'
 import looger from 'utils/logger'
 import { validateOption } from '../utils/helpers';
-export enum ReportDataType  {
-  TRACK = 0,
-  ERROR = 1
-}
-export enum UploadType {
-  IMAGE = 0,
-  XHR = 1,
-  BEACON = 2
-}
+import { ReportDataType,UploadType } from './constant'
+import { _global } from '../utils/global';
 export class TransportData {
   queue!: Queue
   errorDsn = ''
@@ -17,7 +10,8 @@ export class TransportData {
   uploadType = UploadType.BEACON
   constructor() {
     this.queue = new Queue()
-    this.uploadType = Boolean(navigator.sendBeacon) ? UploadType.BEACON : UploadType.IMAGE
+    // @ts-ignore
+    this.uploadType = _global.navitagor &&  navigator.sendBeacon ? UploadType.BEACON : UploadType.IMAGE
   }
   imgRequest(data:any,url:string) {
     const requestFun = () => {

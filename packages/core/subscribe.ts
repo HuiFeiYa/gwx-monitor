@@ -2,9 +2,9 @@ import { nativeTryCatch } from 'utils/exception';
 import logger from 'utils/logger'
 import { getFlag,setFlag } from 'utils/index';
 import { EVENTTYPES } from "shared/constant";
-type ReplaceCallback = (data: any) => void
+import { ReplaceCallback, Handlers } from './constant'
 // 收集所有类型事件，每个事件类型是一个数组
-const handlers: { [key in EVENTTYPES]?:ReplaceCallback[]} = {}
+const handlers: Handlers = {}
 export function getDataType (data:any) {
   return Object.prototype.toString.call(data).slice(8,-1)
 }

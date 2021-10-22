@@ -28,8 +28,8 @@ export function validateOption<T>(target:any,targetName:string,expectType:T) : t
   typeof target !== 'undefined' && logger.error(`${targetName}期望传入${expectType}类型，目前是${typeof target}类型`)
   return false
 }
-export function getLocationHref() {
-  if(typeof document === 'undefined' || !Boolean(document.location)) {
+export function getLocationHref(){
+  if(typeof document === 'undefined' || !document.location) {
     return ''
   }
   return document.location.href 
@@ -42,7 +42,7 @@ export function getLocationHref() {
  * @param isForced 是否强制替换
  * @returns 
  */
-export function replaceOld(source:any,name: string, replacement: (...args:any[]) => any, isForced = true) {
+export function replaceOld(source:any,name: string, replacement:Callback, isForced = true) {
   if(source === undefined) return 
   if(name in source || isForced) {
     const original = source[name]

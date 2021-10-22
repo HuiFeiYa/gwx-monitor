@@ -54,7 +54,7 @@ export function scrollReplace(targetList) {
  */
  let lastHref = getLocationHref()
  export function historyReplace() {
-   function historyReplaceFn(originalHistoryFn:(...args:any[])=>void) {
+   function historyReplaceFn(originalHistoryFn) {
      return function(this:History,...args:any[]) {
        let url = args[2]
        if(url) {
@@ -110,7 +110,7 @@ export function scrollReplace(targetList) {
   */
  export function hashReplace() {
    if(variableTypeDetection.isWindow(_global)) {
-     on(_global, EVENTTYPES.HASHCHANGE, function(e){
+     on(_global, EVENTTYPES.HASHCHANGE, function(){
        const to = getLocationHref()
        const from = lastHref
        // 更新上一次路径
