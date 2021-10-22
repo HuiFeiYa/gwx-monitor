@@ -10,19 +10,23 @@
                 height: 500px;
                 overflow-y: scroll;
             }
+
             .content,
             #app {
                 height: 1000px;
             }
+
             html {
                 overflow-y: scroll;
             }
+
             .main {
                 height: 300px;
                 overflow-y: scroll;
             }
         </style>
     </head>
+
     <body>
         <script src="https://unpkg.com/vue/dist/vue.js"></script>
         <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
@@ -114,7 +118,8 @@
             import { init } from "./packages/browser/index.ts";
             init({
                 trackDsn: "http://localhost:4000/user", // 埋点日志
-                errorDsn: "http://localhost:4000/user", // 错误日志
+                errorDsn: "http://localhost:4000/user", // 错误日志,
+                uploadType: 2, // 上传方式为 navigator.beacon
             });
             console.error("this is error", "sencond error");
 
@@ -150,36 +155,5 @@
                 });
             });
         </script>
-        <!--<script type="module">
-    import { init } from './packages/browser/index.ts'
-    import { HashRouter, HistoryRouter } from './router/index.ts'
-    init({
-      trackDsn:'http://localhost:4000/user'
-    })
-    const router = new HashRouter()
-    const historyRouter = new HistoryRouter()
-    const [index,page1,page2] = document.querySelector('ul').querySelectorAll('li')
-    const [path1,path2,path3] = document.querySelector('ol').querySelectorAll('li')
-    console.log(path1,path2,path3)
-    index.addEventListener('click',function(){
-      router.push('/index')
-    })
-    page1.addEventListener('click',function(){
-      router.push('/page1')
-    })
-    page2.addEventListener('click',function(){
-      router.replace('/page2')
-    })
-
-    path1.addEventListener('click',function(){
-      historyRouter.push('/path1')
-    })
-    path2.addEventListener('click',function(){
-      historyRouter.push('/path2')
-    })
-    path3.addEventListener('click',function(){
-      historyRouter.replace('/path3')
-    })
-  </script>-->
     </body>
 </html>

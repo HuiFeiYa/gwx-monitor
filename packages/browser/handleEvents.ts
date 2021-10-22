@@ -1,6 +1,6 @@
 import transportData from "core/transportData";
-import breadcrumb, { BREADCRUMB_TYPES } from "core/breadcrumb";
-import { ReportDataType } from "core/index";
+import breadcrumb from "core/breadcrumb";
+import { ReportDataType, BREADCRUMB_TYPES } from "core/index";
 // 针对不同事件类型进行数据上报
 const HandleEvents = {
     handleHttp(data) {

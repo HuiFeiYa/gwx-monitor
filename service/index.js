@@ -10,10 +10,6 @@ app.use(
         multipart: true,
     })
 );
-router.get("/", (ctx) => {
-    console.log(ctx.request.url);
-    ctx.response.body = 1;
-});
 router.get("/index", (ctx) => {
     console.log(ctx.request.url);
     ctx.body = {
@@ -26,7 +22,13 @@ router.get("/index", (ctx) => {
 });
 router.post("/user", (ctx) => {
     console.log("user", ctx.request.body);
-    ctx.body = "user";
+    ctx.body = {
+        status: 200,
+        responseType: "success",
+        response: {
+            msg: "user result",
+        },
+    };
 });
 router.post("/track", (ctx) => {
     ctx.body = {

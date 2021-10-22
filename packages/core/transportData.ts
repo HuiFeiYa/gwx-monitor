@@ -10,8 +10,8 @@ export class TransportData {
     uploadType = UploadType.BEACON;
     constructor() {
         this.queue = new Queue();
-        // @ts-ignore
         this.uploadType =
+            // @ts-ignore
             _global.navitagor && navigator.sendBeacon
                 ? UploadType.BEACON
                 : UploadType.IMAGE;
@@ -71,7 +71,7 @@ export class TransportData {
     }
     bindOptions(options: InitOptions) {
         const { errorDsn, trackDsn, uploadType } = options;
-        validateOption(uploadType, "uploadType", "string") &&
+        validateOption(uploadType, "uploadType", "number") &&
             (this.uploadType = uploadType);
         validateOption(errorDsn, "errorDsn", "string") &&
             (this.errorDsn = errorDsn);
