@@ -1,41 +1,31 @@
 {
-  //"extends": "", 继承的基础配置，可以是别人已经规范化的配置，可以被后面自定义的配置覆盖
-  "compilerOptions": {
-    "baseUrl":"./",
-    "module": "ES6",
-    "noFallthroughCasesInSwitch": false,
-    "noImplicitAny": false, // 没有为变量提供类型标注时候，TypeScript 后退给变量添加 any 类型，是否允许隐喻的 any类型
-    "noImplicitReturns": true, // 检查所有路径都返回值
-    "noImplicitThis": true,   // 是否存在隐喻的 this 值
-    "noUnusedLocals": true, // 当本地变量未使用时报错
-    "noUnusedParameters": false, // 函数形参未使用时候报错
-    "strict": true,
-    "paths": {
-      // 定义 browser key 对应的map路径
-      "browser/*":[
-        "./packages/browser/*"
-      ],
-      "core/*":[
-        "./packages/core/*"
-      ],
-      "utils/*":[
-        "./packages/utils/*"
-      ],
-      "shared/*":[
-        "./packages/shared/*"
-      ],
-      "web-performance/*": [
-        "./packages/web-performance/*"
-      ]
+    //"extends": "", 继承的基础配置，可以是别人已经规范化的配置，可以被后面自定义的配置覆盖
+    "compilerOptions": {
+        "baseUrl": "./",
+        "module": "ES6",
+        "noFallthroughCasesInSwitch": false,
+        "noImplicitAny": false, // 没有为变量提供类型标注时候，TypeScript 后退给变量添加 any 类型，是否允许隐喻的 any类型
+        "noImplicitReturns": true, // 检查所有路径都返回值
+        "noImplicitThis": true, // 是否存在隐喻的 this 值
+        "noUnusedLocals": true, // 当本地变量未使用时报错
+        "noUnusedParameters": false, // 函数形参未使用时候报错
+        "strict": true,
+        "paths": {
+            // 定义 browser key 对应的map路径
+            "browser/*": ["./packages/browser/*"],
+            "core/*": ["./packages/core/*"],
+            "utils/*": ["./packages/utils/*"],
+            "shared/*": ["./packages/shared/*"],
+            "web-performance/*": ["./packages/web-performance/*"]
+        },
+        "allowJs": true,
+        "checkJs": true,
+        "lib": ["DOM"],
+        "declaration": true,
+        //"declarationMap": true,
+        //"sourceMap": true,
+        "outDir": "./dist/"
+        //"declarationDir": "./dist/packages/"
     },
-    "allowJs": true,
-    "checkJs": true,
-    "lib": ["DOM"],
-    "declaration": true,
-    //"declarationMap": true,
-    //"sourceMap": true,
-    "outDir": "./dist/",
-    //"declarationDir": "./dist/packages/"
-  },
-  "include": ["packages","types"]
+    "include": ["packages", "types"]
 }

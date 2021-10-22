@@ -1,1 +1,1 @@
-type Callback =  (...args:any[]) => any
+type Callback = (...args: any[]) => any;

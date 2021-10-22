@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    body{
-      height: 500px;
-      overflow-y: scroll;
-    }
-    .content,#app{
-      height: 1000px;
-    }
-    html {
-      overflow-y: scroll;
-    }
-    .main{
-      height: 300px;
-      overflow-y: scroll;
-    }
-  </style>
-</head>
-<body>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
-  <div id="app">
-    <h1>Hello App!</h1>
-    <button class="req">get 请求</button>
-    <button class="post">post 请求</button>
-    <button class="fetch">fetch 请求</button>
-    <p class="mto-scroll-b" data-scroll-b="跳转链接">
-      <!-- 使用 router-link 组件来导航. -->
-      <!-- 通过传入 `to` 属性指定链接. -->
-      <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
-      <router-link to="/foo">Go to Foo</router-link>
-      <router-link to="/bar">Go to Bar</router-link>
-    </p>
-    <div class="main mto-scroll-b" data-scroll-b="p 列表">
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p class="mto-scroll-c" data-scroll-c="第四个p">1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p class="mto-scroll-c" data-scroll-c="倒数第二个p">1</p>
-      <p>12</p>
-    </div>
-    <!-- 路由出口 -->
-    <!-- 路由匹配到的组件将渲染在这里 -->
-    <router-view></router-view>
-  </div>
-  <!--<div class="content">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                height: 500px;
+                overflow-y: scroll;
+            }
+            .content,
+            #app {
+                height: 1000px;
+            }
+            html {
+                overflow-y: scroll;
+            }
+            .main {
+                height: 300px;
+                overflow-y: scroll;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+        <div id="app">
+            <h1>Hello App!</h1>
+            <button class="req">get 请求</button>
+            <button class="post">post 请求</button>
+            <button class="fetch">fetch 请求</button>
+            <p class="mto-scroll-b" data-scroll-b="跳转链接">
+                <!-- 使用 router-link 组件来导航. -->
+                <!-- 通过传入 `to` 属性指定链接. -->
+                <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+                <router-link to="/foo">Go to Foo</router-link>
+                <router-link to="/bar">Go to Bar</router-link>
+            </p>
+            <div class="main mto-scroll-b" data-scroll-b="p 列表">
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p class="mto-scroll-c" data-scroll-c="第四个p">1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p class="mto-scroll-c" data-scroll-c="倒数第二个p">1</p>
+                <p>12</p>
+            </div>
+            <!-- 路由出口 -->
+            <!-- 路由匹配到的组件将渲染在这里 -->
+            <router-view></router-view>
+        </div>
+        <!--<div class="content">
     <input type="text" placeholder="手机号">
     <input type="text" placeholder="姓名">
     <div class="button">按钮</div>
@@ -71,81 +72,85 @@
     </ol>
   </div>
   -->
-  <script>
-      const Foo = { template: '<div>foo</div>',created() {
-        console.log('foo created')
-      } }
-      const Bar = { template: '<div>bar</div>',created() {
-        console.log('bar created')
-      }}
+        <script>
+            const Foo = {
+                template: "<div>foo</div>",
+                created() {
+                    console.log("foo created");
+                },
+            };
+            const Bar = {
+                template: "<div>bar</div>",
+                created() {
+                    console.log("bar created");
+                },
+            };
 
-      // 2. 定义路由
-      // 每个路由应该映射一个组件。 其中"component" 可以是
-      // 通过 Vue.extend() 创建的组件构造器，
-      // 或者，只是一个组件配置对象。
-      // 我们晚点再讨论嵌套路由。
-      const routes = [
-        { path: '/foo', component: Foo },
-        { path: '/bar', component: Bar }
-      ]
+            // 2. 定义路由
+            // 每个路由应该映射一个组件。 其中"component" 可以是
+            // 通过 Vue.extend() 创建的组件构造器，
+            // 或者，只是一个组件配置对象。
+            // 我们晚点再讨论嵌套路由。
+            const routes = [
+                { path: "/foo", component: Foo },
+                { path: "/bar", component: Bar },
+            ];
 
-      // 3. 创建 router 实例，然后传 `routes` 配置
-      // 你还可以传别的配置参数, 不过先这么简单着吧。
-      const router = new VueRouter({
-        mode: 'history',
-        routes // (缩写) 相当于 routes: routes
-      })
+            // 3. 创建 router 实例，然后传 `routes` 配置
+            // 你还可以传别的配置参数, 不过先这么简单着吧。
+            const router = new VueRouter({
+                mode: "history",
+                routes, // (缩写) 相当于 routes: routes
+            });
 
-      // 4. 创建和挂载根实例。
-      // 记得要通过 router 配置参数注入路由，
-      // 从而让整个应用都有路由功能
-      const app = new Vue({
-        router
-      }).$mount('#app')
+            // 4. 创建和挂载根实例。
+            // 记得要通过 router 配置参数注入路由，
+            // 从而让整个应用都有路由功能
+            const app = new Vue({
+                router,
+            }).$mount("#app");
+        </script>
+        <script type="module">
+            import { init } from "./packages/browser/index.ts";
+            init({
+                trackDsn: "http://localhost:4000/user", // 埋点日志
+                errorDsn: "http://localhost:4000/user", // 错误日志
+            });
+            console.error("this is error", "sencond error");
 
-  </script>
-  <script type="module">
-    import { init } from './packages/browser/index.ts'
-    init({
-      trackDsn:'http://localhost:4000/user', // 埋点日志
-      errorDsn:'http://localhost:4000/user', // 错误日志
-    })
-    console.error('this is error','sencond error')
-
-    const reqButton = document.getElementsByClassName('req')[0]
-    const postButton = document.getElementsByClassName('post')[0]
-    const fetchButton = document.getElementsByClassName('fetch')[0]
-    reqButton.addEventListener('click',function() {
-    
-      let xhr = new XMLHttpRequest()
-      xhr.open('get','http://localhost:4000/index')
-      xhr.setRequestHeader('name','zhangsan')
-      xhr.send(null)
-    })
-    postButton.addEventListener('click',function() {
-      let xhr = new XMLHttpRequest()
-      xhr.open('post','http://localhost:4000/track')
-      xhr.setRequestHeader('track','aaa')
-      xhr.setRequestHeader('track1','bbb')
-      xhr.send({
-        name:'dd',
-        password:123
-      })
-    })
-    fetchButton.addEventListener('click',function(){
-      fetch('http://localhost:4000/track',{
-        method: 'POST',
-        body: {
-          type:'fetch',
-          trigger: 'click'
-        },
-        headers: {
-          Ev: 'v8'
-        }
-      })
-    })
-  </script>
-  <!--<script type="module">
+            const reqButton = document.getElementsByClassName("req")[0];
+            const postButton = document.getElementsByClassName("post")[0];
+            const fetchButton = document.getElementsByClassName("fetch")[0];
+            reqButton.addEventListener("click", function () {
+                let xhr = new XMLHttpRequest();
+                xhr.open("get", "http://localhost:4000/index");
+                xhr.setRequestHeader("name", "zhangsan");
+                xhr.send(null);
+            });
+            postButton.addEventListener("click", function () {
+                let xhr = new XMLHttpRequest();
+                xhr.open("post", "http://localhost:4000/track");
+                xhr.setRequestHeader("track", "aaa");
+                xhr.setRequestHeader("track1", "bbb");
+                xhr.send({
+                    name: "dd",
+                    password: 123,
+                });
+            });
+            fetchButton.addEventListener("click", function () {
+                fetch("http://localhost:4000/track", {
+                    method: "POST",
+                    body: {
+                        type: "fetch",
+                        trigger: "click",
+                    },
+                    headers: {
+                        Ev: "v8",
+                    },
+                });
+            });
+        </script>
+        <!--<script type="module">
     import { init } from './packages/browser/index.ts'
     import { HashRouter, HistoryRouter } from './router/index.ts'
     init({
@@ -176,5 +181,5 @@
       historyRouter.replace('/path3')
     })
   </script>-->
-</body>
+    </body>
 </html>
