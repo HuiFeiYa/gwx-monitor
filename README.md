@@ -6,7 +6,7 @@
 
 -   [x] 🔨 路由跳转
 -   [x] 🔨 代码报错 console.error()
--   [x] 🔨click、scroll
+-   [x] 🔨 click、scroll
 -   [x] 🔨 接口请求(请求头、请求数据、响应数据)
 
 ## 启动
