@@ -1,37 +1,33 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "extends": "eslint:recommended",
-  "globals": {
-    "wx": "readonly"
-  },
-  "rules": {},
-  "overrides": [
-    {
-      "files": [
-        "types/**",
-        "packages/web-performance/src/constants/**",
-        "packages/core/constant.ts",
-        "packages/shared/constant.ts",
-        "packages/web-performance/src/types/**"
-      ], // 针对 types 下文件不进行校验的选项
-      "rules": {
-        "no-unused-vars": "off"
-      }
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "env": {
+        "browser": true,
+        "node": true
     },
-    {
-      "files": [
-        "*.ts"
-      ],
-      "rules": {
-        "no-undef": "off"
-      }
-    }
-  ]
+    "extends": "eslint:recommended",
+    "globals": {
+        "wx": "readonly"
+    },
+    "rules": {},
+    "overrides": [
+        {
+            "files": [
+                "types/**",
+                "packages/web-performance/src/constants/**",
+                "packages/core/constant.ts",
+                "packages/shared/constant.ts",
+                "packages/web-performance/src/types/**"
+            ], // 针对 types 下文件不进行校验的选项
+            "rules": {
+                "no-unused-vars": "off"
+            }
+        },
+        {
+            "files": ["*.ts"],
+            "rules": {
+                "no-undef": "off"
+            }
+        }
+    ]
 }
